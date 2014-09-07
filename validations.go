@@ -1,18 +1,25 @@
 package scrivener
 
+func (scrivener *scrivener) Assert(fn func(interface{}) bool, key string, message string) {
+	result := fn(scrivener.s)
+	if !result {
+		scrivener.Errors[key] = append(scrivener.Errors[key], message)
+	}
+}
+
 func (scrivener *scrivener) AssertPresent(fieldName string) {
-	result := scrivener.elem.FieldByName(fieldName).String()
+	scrivener.Assert(func(s interface{}) bool {
+		value := scrivener.elem.FieldByName(fieldName).String()
 
-	if result == "" {
-		scrivener.Errors = append(scrivener.Errors, fieldName+" can't be blank!")
-	}
+		return len(value) > 0
+	}, fieldName, "not_present")
 }
 
-func (scrivener *scrivener) AssertEqual(fieldName1 string, fieldName2 string) {
-	result1 := scrivener.elem.FieldByName(fieldName1).String()
-	result2 := scrivener.elem.FieldByName(fieldName2).String()
+// func (scrivener *scrivener) AssertEqual(fieldName1 string, fieldName2 string) {
+// scrivener.Assert(func(s interface{}) bool {
+// value1 := scrivener.elem.FieldByName(fieldName1).String()
+// value2 := scrivener.elem.FieldByName(fieldName2).String()
 
-	if result1 != result2 {
-		scrivener.Errors = append(scrivener.Errors, fieldName1+" and "+fieldName2+" do not match!")
-	}
-}
+// return value1 == value2
+// }, fieldName, "not_equal")
+// }
