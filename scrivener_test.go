@@ -18,7 +18,7 @@ func TestAssertPresent(t *testing.T) {
 	scrivener := New(form)
 
 	scrivener.AssertPresent("FirstName")
-	if !reflect.DeepEqual(scrivener.Errors, map[string][]string{"FirstName": {"not_present"}}) {
+	if !reflect.DeepEqual(scrivener.Errors, Errors{"FirstName": {"not_present"}}) {
 		t.Error("Failed!")
 	}
 }
@@ -28,7 +28,7 @@ func TestAssertEqualString(t *testing.T) {
 	scrivener := New(form)
 
 	scrivener.AssertEqualString("LastName", "Cancio")
-	if !reflect.DeepEqual(scrivener.Errors, map[string][]string{"LastName": {"not_equal"}}) {
+	if !reflect.DeepEqual(scrivener.Errors, Errors{"LastName": {"not_equal"}}) {
 		t.Error("Failed!")
 	}
 }

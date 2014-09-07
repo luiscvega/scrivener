@@ -4,10 +4,12 @@ import (
 	"reflect"
 )
 
+type Errors map[string][]string
+
 type scrivener struct {
 	s      interface{}
 	elem   reflect.Value
-	Errors map[string][]string
+	Errors
 }
 
 func New(s interface{}) *scrivener {
@@ -16,7 +18,7 @@ func New(s interface{}) *scrivener {
 	form.s = s
 	form.elem = reflect.ValueOf(s).Elem()
 
-	form.Errors = make(map[string][]string, 0)
+	form.Errors = make(Errors, 0)
 
 	return form
 }
