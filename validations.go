@@ -15,11 +15,10 @@ func (scrivener *scrivener) AssertPresent(fieldName string) {
 	}, fieldName, "not_present")
 }
 
-// func (scrivener *scrivener) AssertEqual(fieldName1 string, fieldName2 string) {
-// scrivener.Assert(func(s interface{}) bool {
-// value1 := scrivener.elem.FieldByName(fieldName1).String()
-// value2 := scrivener.elem.FieldByName(fieldName2).String()
+func (scrivener *scrivener) AssertEqualString(fieldName string, expected string) {
+	scrivener.Assert(func(s interface{}) bool {
+		actual := scrivener.elem.FieldByName(fieldName).String()
 
-// return value1 == value2
-// }, fieldName, "not_equal")
-// }
+		return actual == expected
+	}, fieldName, "not_equal")
+}

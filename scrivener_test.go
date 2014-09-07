@@ -13,18 +13,22 @@ type signup struct {
 	ConfirmPassword string `name:"confirm_password"`
 }
 
-var form = new(signup)
-
-func TestAssert(t *testing.T) {
-	form.Email = "luiscvega@gmail.com"
-	form.Password = "pass1234"
-	form.ConfirmPassword = "pass1235"
-
+func TestAssertPresent(t *testing.T) {
+	form := new(signup)
 	scrivener := New(form)
 
 	scrivener.AssertPresent("FirstName")
-
 	if !reflect.DeepEqual(scrivener.Errors, map[string][]string{"FirstName": {"not_present"}}) {
+		t.Error("Failed!")
+	}
+}
+
+func TestAssertEqualString(t *testing.T) {
+	form := &signup{LastName: "Vega"}
+	scrivener := New(form)
+
+	scrivener.AssertEqualString("LastName", "Cancio")
+	if !reflect.DeepEqual(scrivener.Errors, map[string][]string{"LastName": {"not_equal"}}) {
 		t.Error("Failed!")
 	}
 }
