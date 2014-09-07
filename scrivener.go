@@ -4,8 +4,6 @@ import (
 	"reflect"
 )
 
-type Errors map[string][]string
-
 type scrivener struct {
 	s      interface{}
 	elem   reflect.Value
