@@ -14,7 +14,7 @@ type signup struct {
 }
 
 func TestAssertPresent(t *testing.T) {
-	form := new(signup)
+	form := &signup{}
 	scrivener := New(form)
 
 	scrivener.AssertPresent("FirstName")
