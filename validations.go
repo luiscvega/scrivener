@@ -2,10 +2,12 @@ package scrivener
 
 func (scrivener *scrivener) Assert(fn func(interface{}) bool, key string, message string) bool {
 	pass := fn(scrivener.s)
+
 	if !pass {
 		scrivener.Errors[key] = append(scrivener.Errors[key], message)
 		return false
 	}
+
 	return true
 }
 
